@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getAuthTokenFromReq, verifyToken } from "../_lib/auth";
+import { isAuthorizedAdminRequest } from "../_lib/auth";
 
 const createSchema = z.object({
   name: z.string().min(1).transform((s) => s.trim()),
@@ -26,9 +26,7 @@ export default async function handler(req: any, res: any) {
 
   try {
     if (req.method === "GET") {
-      // Admin only
-      const token = getAuthTokenFromReq(req);
-      if (!token || !verifyToken(token, process.env.ADMIN_PASSWORD || "")) {
+      if (!isAuthorizedAdminRequest(req)) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
