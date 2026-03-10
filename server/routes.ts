@@ -56,7 +56,7 @@ export async function registerRoutes(
 
   app.patch(api.orders.updateStatus.path, requireAuth, async (req, res) => {
     try {
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const input = api.orders.updateStatus.input.parse(req.body);
       const order = await storage.updateOrderStatus(id, input.status as any);
       res.json(order);
@@ -73,7 +73,7 @@ export async function registerRoutes(
 
   app.delete(api.orders.delete.path, requireAuth, async (req, res) => {
     try {
-      const id = Number(req.params.id);
+      const id = req.params.id;
       await storage.deleteOrder(id);
       res.status(204).send();
     } catch (err) {
