@@ -1,4 +1,4 @@
-import { getAuthTokenFromReq, verifyToken } from "../_lib/auth";
+import { isAuthorizedAdminRequest } from "../_lib/auth";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -15,8 +15,7 @@ function supabaseHeaders(key: string) {
 export default async function handler(req: any, res: any) {
   if (!SUPABASE_URL || !SERVICE_KEY) return res.status(500).json({ message: "Supabase not configured" });
   try {
-    const token = getAuthTokenFromReq(req);
-    if (!token || !verifyToken(token, process.env.ADMIN_PASSWORD || "")) return res.status(401).json({ message: "Unauthorized" });
+    if (!isAuthorizedAdminRequest(req)) return res.status(401).json({ message: "Unauthorized" });
 
     const id = req.query?.id;
     if (!id) return res.status(400).json({ message: "Missing id" });
