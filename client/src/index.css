@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-display: var(--font-sans);
+
+    /* Color system: deep charcoal background, muted slate cards, muted indigo accent */
+    --bg-color: #121418; /* deep charcoal */
+    --bg-surface: rgba(20,24,28,0.95);
+    --foreground: #e6eef6; /* soft near-white */
+
+    --card: rgba(30,34,39,0.6);
+    --card-foreground: var(--foreground);
+    --card-border: rgba(255,255,255,0.04);
+
+    --muted-slate: #2c3136;
+    --accent: #6b6fa3; /* muted indigo / slate-blue */
+    --accent-foreground: #ffffff;
+    --destructive: #b2555a;
+
+    --border: rgba(255,255,255,0.04);
+    --input: rgba(255,255,255,0.03);
+    --radius: 0.75rem;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background-color: var(--card);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  }
+
+  .glass-input {
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    transition: border-color 160ms ease, background-color 160ms ease;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  /* Preserve 3D for framer motion card effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}

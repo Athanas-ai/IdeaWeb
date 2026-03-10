@@ -1,0 +1,244 @@
+🎯 PROJECT NAME
+Campus Build Lab (you can rename later)
+________________________________________
+🎯 PURPOSE
+Create a lightweight multi-page web application where:
+•	Students can submit website ideas.
+•	The interface is minimal, dark, glass-morphism styled.
+•	The tone is creative and bold.
+•	No corporate language.
+•	No emojis.
+•	Admin panel is hidden.
+•	Lightweight for low bandwidth.
+•	No unnecessary libraries.
+•	Clean structure.
+•	Fast loading.
+This is a campus experimental build platform.
+Price is fixed at ₹200 (static text only, no payment integration).
+________________________________________
+🌑 DESIGN SYSTEM
+Theme:
+•	Dark matte background (#0f0f12 or similar)
+•	Glass morphism UI
+•	Subtle blur (not heavy)
+•	Thin borders
+•	Soft shadows
+•	No glow
+•	No gradients that increase file size
+•	No external heavy UI libraries
+•	No bootstrap
+•	No tailwind CDN
+•	Keep CSS custom and lightweight
+________________________________________
+✨ Typography
+•	Clean modern sans-serif
+•	Minimal weights (avoid loading multiple font weights)
+•	Use system fonts if possible to reduce traffic
+No playful fonts.
+No decorative fonts.
+________________________________________
+🧊 Glass Morphism Style
+Cards should have:
+•	Semi-transparent background
+•	Backdrop blur
+•	Soft border
+•	Rounded corners
+•	Subtle elevation on hover
+Example visual behavior:
+•	Slight lift on hover
+•	No glow
+•	No neon
+________________________________________
+🌐 PAGE STRUCTURE
+________________________________________
+1️⃣ HOME PAGE (/)
+Full screen centered layout.
+Content:
+Main Heading:
+Got an idea?
+Let’s make it real.
+Sub-line:
+Any idea — serious or stupid.
+Small line:
+₹200 Experimental Build
+Built by BCA 4th Semester
+Primary Button:
+Start a Build
+Footer (bottom subtle text):
+Built by BCA 4th Semester
+Department of Computer Applications
+No extra sections.
+No stats.
+No navigation clutter.
+________________________________________
+2️⃣ CONTACT PAGE (/contact)
+Dark background.
+Centered glass container.
+Heading:
+Tell us what you're thinking.
+Inside the main glass card:
+________________________________________
+Section 1: Idea Input
+Label:
+What’s your idea?
+Textarea placeholder:
+Say it in your own words. No need to be technical.
+Large textarea.
+Clean.
+________________________________________
+Section 2: Inspiration Cards
+Small heading:
+Need a spark? Try this.
+Below it, show 3D style idea cards.
+Cards:
+•	Animated Photo Collage
+•	Cinematic Slideshow
+•	Interactive Memory Wall
+•	Countdown Reveal Page
+•	Minimal Personal Page
+•	Digital Memory Book
+•	Aesthetic Moodboard
+•	Image Flip Gallery
+•	Birthday Reveal Page
+•	One Page Story Website
+Each card:
+•	Glass style
+•	Slight 3D tilt effect on desktop only
+•	Static on mobile
+•	On click → auto-fill textarea with structured starter text
+Example autofill text:
+"Build an animated photo collage website with smooth transitions and modern dark design."
+________________________________________
+Section 3: Basic Details
+Fields:
+•	Name (required)
+•	Phone Number (required)
+No email field.
+________________________________________
+Submit Button:
+Submit Build Request — ₹200
+On submit:
+•	Save to database
+•	Redirect to /success
+________________________________________
+3️⃣ SUCCESS PAGE (/success)
+Minimal glass card centered.
+Text:
+Idea received.
+We’ll check it and contact you soon.
+Below:
+If it’s too complex for our current stage, we’ll let you know.
+Button:
+Message on WhatsApp
+The WhatsApp number must be easy to edit in one config variable.
+________________________________________
+🔐 ADMIN PAGE (/admin)
+Not linked anywhere publicly.
+Accessible only by typing URL.
+No fancy authentication.
+Just a simple password 
+If password correct:
+Show dashboard.
+________________________________________
+Admin Dashboard Layout
+Top: 4 glass stat cards
+•	Total Requests
+•	Pending
+•	Completed
+•	Total Earned (Completed × 200)
+Below:
+Glass table showing:
+•	ID
+•	Name
+•	Phone
+•	Idea (short preview + expandable)
+•	Status
+•	Created Date
+•	Actions
+Actions:
+•	Approve
+•	Mark In Progress
+•	Mark Completed
+•	Reject
+•	Delete
+Status values:
+Pending (default)
+Approved
+In Progress
+Completed
+Rejected
+No public status tracking.
+________________________________________
+🗃 DATABASE
+Single table: orders
+Fields:
+•	id (auto increment)
+•	name
+•	phone
+•	idea
+•	status (default: Pending)
+•	created_at (timestamp)
+Lightweight database (SQLite or simplest suitable).
+________________________________________
+🧠 FUNCTIONAL REQUIREMENTS
+•	Clean input validation
+•	Phone number basic validation (length check)
+•	Trim whitespace
+•	No heavy logging
+•	No email sending
+•	No payment gateway
+•	No third-party heavy libraries
+•	Minimal JS (only modal, tilt, autofill)
+________________________________________
+🎮 3D TILT REQUIREMENT
+On desktop only:
+Cards tilt slightly based on mouse movement.
+On mobile:
+Disable tilt.
+Cards static.
+Tilt must be lightweight vanilla JS.
+No external animation libraries.
+________________________________________
+⚡ PERFORMANCE REQUIREMENTS
+•	Minimize CSS size
+•	Minimize JS size
+•	Avoid heavy fonts
+•	Avoid external UI frameworks
+•	Use compressed assets
+•	Keep everything under minimal load
+Optimized for low internet bandwidth campus users.
+________________________________________
+🧭 PROJECT GOAL
+The final product should feel:
+•	Minimal
+•	Clean
+•	Confident
+•	Slightly mysterious
+•	Student-built
+•	Not corporate
+•	Not childish
+•	Not overloaded
+It should look premium despite simplicity.
+________________________________________
+🛠 CONFIGURATION VARIABLES
+•	ADMIN_PASSWORD: Khublei@123
+•	WHATSAPP_NUMBER: +91 8132981738
+•	BUILD_PRICE (default 200)
+________________________________________
+🚀 DEPLOYMENT
+Must be deployable easily on lightweight hosting.
+No special environment requirements.
+________________________________________
+🧱 FINAL CHECKLIST
+✔ Multi-page
+✔ Dark theme
+✔ Glass morphism
+✔ Slight 3D tilt
+✔ Hidden admin
+✔ Tally system
+✔ No emojis
+✔ No glow
+✔ No corporate tone
+✔ Lightweight
+✔ Clean architecture
+
