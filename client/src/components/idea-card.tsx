@@ -9,8 +9,8 @@ export function IdeaCard({ title, onClick }: IdeaCardProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (ref.current === null) return;
+    const element: HTMLDivElement = ref.current;
 
     let raf = 0;
     let targetX = 0;
@@ -24,7 +24,7 @@ export function IdeaCard({ title, onClick }: IdeaCardProps) {
     if (isTouch) return; // disable tilt on touch devices
 
     function onMove(e: MouseEvent) {
-      const rect = el.getBoundingClientRect();
+      const rect = element.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
       const nx = (mx / rect.width) - 0.5;
@@ -45,19 +45,19 @@ export function IdeaCard({ title, onClick }: IdeaCardProps) {
     function loop() {
       currentX += (targetX - currentX) * ease;
       currentY += (targetY - currentY) * ease;
-      el.style.transform = `perspective(900px) rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+      element.style.transform = `perspective(900px) rotateX(${currentX}deg) rotateY(${currentY}deg)`;
       raf = requestAnimationFrame(loop);
     }
 
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
+    element.addEventListener("mousemove", onMove);
+    element.addEventListener("mouseleave", onLeave);
     raf = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(raf);
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-      if (el) el.style.transform = "";
+      element.removeEventListener("mousemove", onMove);
+      element.removeEventListener("mouseleave", onLeave);
+      element.style.transform = "";
     };
   }, []);
 
