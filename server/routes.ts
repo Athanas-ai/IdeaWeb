@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
+import { getAdminPassword } from "@shared/admin-auth";
 import { z } from "zod";
 import session from "express-session";
 import MemoryStore from "memorystore";
@@ -21,7 +22,7 @@ export async function registerRoutes(
     }),
     resave: false,
     saveUninitialized: false,
-    secret: process.env.SESSION_SECRET || 'dev_secret_key'
+    secret: process.env.SESSION_SECRET || '9402'
   }));
 
   const requireAuth = (req: any, res: any, next: any) => {
@@ -85,7 +86,7 @@ export async function registerRoutes(
   app.post(api.admin.login.path, async (req, res) => {
     try {
       const input = api.admin.login.input.parse(req.body);
-      const adminPassword = process.env.ADMIN_PASSWORD || "Khublei@123";
+      const adminPassword = getAdminPassword();
       
       if (input.password === adminPassword) {
         if (!req.session) {
