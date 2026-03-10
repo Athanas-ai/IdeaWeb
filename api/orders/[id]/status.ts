@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getAuthTokenFromReq, verifyToken } from "../../../api/_lib/auth";
+import { isAuthorizedAdminRequest } from "../../../api/_lib/auth";
 
 const updateSchema = z.object({ status: z.enum(["Pending", "Approved", "In Progress", "Completed", "Rejected"]) });
 
@@ -20,8 +20,7 @@ export default async function handler(req: any, res: any) {
   try {
     if (req.method !== "PATCH") return res.status(405).json({ message: "Method not allowed" });
 
-    const token = getAuthTokenFromReq(req);
-    if (!token || !verifyToken(token, process.env.ADMIN_PASSWORD || "")) return res.status(401).json({ message: "Unauthorized" });
+    if (!isAuthorizedAdminRequest(req)) return res.status(401).json({ message: "Unauthorized" });
 
     const id = req.query?.id;
     if (!id) return res.status(400).json({ message: "Missing id" });
