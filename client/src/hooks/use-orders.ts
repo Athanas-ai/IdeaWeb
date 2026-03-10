@@ -1,12 +1,15 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, buildUrl, type OrderInput, type OrderStatusUpdate } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
+import { getAdminRequestHeaders } from "@/lib/admin-auth";
 
 export function useOrders() {
   return useQuery({
     queryKey: [api.orders.list.path],
     queryFn: async () => {
-      const res = await fetch(api.orders.list.path, { credentials: "include" });
+      const res = await fetch(api.orders.list.path, {
+        headers: getAdminRequestHeaders(),
+      });
       if (!res.ok) throw new Error("Failed to fetch orders");
       const data = await res.json();
       return api.orders.list.responses[200].parse(data);
@@ -48,9 +51,11 @@ export function useUpdateOrderStatus() {
       const url = buildUrl(api.orders.updateStatus.path, { id });
       const res = await fetch(url, {
         method: api.orders.updateStatus.method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...getAdminRequestHeaders(),
+        },
         body: JSON.stringify({ status }),
-        credentials: "include",
       });
       if (!res.ok) {
         const errData = await res.json().catch(() => null);
@@ -80,7 +85,7 @@ export function useDeleteOrder() {
       const url = buildUrl(api.orders.delete.path, { id });
       const res = await fetch(url, { 
         method: api.orders.delete.method, 
-        credentials: "include" 
+        headers: getAdminRequestHeaders(),
       });
       if (!res.ok) throw new Error("Failed to delete order");
     },
