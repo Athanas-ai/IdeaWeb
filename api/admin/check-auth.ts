@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { getAuthTokenFromReq, verifyToken } from "../_lib/auth";
-import { getAdminPassword } from "@shared/admin-auth";
+import { getAdminPassword } from "../../shared/admin-auth";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") return res.status(405).json({ message: "Method not allowed" });
@@ -16,4 +16,3 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ message: "Internal server error" });
   }
 }
-
