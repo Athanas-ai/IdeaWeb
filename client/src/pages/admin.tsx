@@ -48,10 +48,10 @@ export default function Admin() {
             
             <button
               type="submit"
-              disabled={login.isLoading}
+              disabled={login.isPending}
               className="w-full bg-white text-black font-semibold py-4 rounded-xl hover:bg-white/90 active:scale-95 transition-all duration-200"
             >
-              {login.isLoading ? "Unlocking..." : "Enter Lab"}
+              {login.isPending ? "Unlocking..." : "Enter Lab"}
             </button>
           </form>
         </div>
