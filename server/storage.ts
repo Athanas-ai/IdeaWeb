@@ -4,10 +4,10 @@ import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getOrders(): Promise<Order[]>;
-  getOrder(id: number): Promise<Order | undefined>;
+  getOrder(id: string): Promise<Order | undefined>;
   createOrder(order: InsertOrder): Promise<Order>;
-  updateOrderStatus(id: number, status: OrderStatus): Promise<Order>;
-  deleteOrder(id: number): Promise<void>;
+  updateOrderStatus(id: string, status: OrderStatus): Promise<Order>;
+  deleteOrder(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -15,7 +15,7 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(orders);
   }
 
-  async getOrder(id: number): Promise<Order | undefined> {
+  async getOrder(id: string): Promise<Order | undefined> {
     const [order] = await db.select().from(orders).where(eq(orders.id, id));
     return order;
   }
@@ -25,7 +25,7 @@ export class DatabaseStorage implements IStorage {
     return order;
   }
 
-  async updateOrderStatus(id: number, status: OrderStatus): Promise<Order> {
+  async updateOrderStatus(id: string, status: OrderStatus): Promise<Order> {
     const [order] = await db
       .update(orders)
       .set({ status })
@@ -34,7 +34,7 @@ export class DatabaseStorage implements IStorage {
     return order;
   }
 
-  async deleteOrder(id: number): Promise<void> {
+  async deleteOrder(id: string): Promise<void> {
     await db.delete(orders).where(eq(orders.id, id));
   }
 }
