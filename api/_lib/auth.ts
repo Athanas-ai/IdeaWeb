@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { getAdminPassword, isAdminPassword } from "@shared/admin-auth";
 
 const COOKIE_NAME = "cbl_auth";
 
@@ -51,6 +52,23 @@ export function getAuthTokenFromReq(req: any) {
   const cookieHeader = req.headers?.cookie;
   const cookies = parseCookies(cookieHeader);
   return cookies[COOKIE_NAME];
+}
+
+export function isAuthorizedAdminRequest(req: any) {
+  const headerPassword = req.headers?.["x-admin-password"];
+  const password =
+    typeof headerPassword === "string"
+      ? headerPassword
+      : Array.isArray(headerPassword)
+        ? headerPassword[0] || ""
+        : "";
+
+  if (password && isAdminPassword(password)) {
+    return true;
+  }
+
+  const token = getAuthTokenFromReq(req);
+  return Boolean(token && verifyToken(token, getAdminPassword()));
 }
 
 export { COOKIE_NAME };
