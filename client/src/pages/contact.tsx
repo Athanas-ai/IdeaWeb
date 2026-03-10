@@ -169,10 +169,10 @@ export default function Contact() {
               <p className="text-white/40 text-sm">We'll review your request before taking payment.</p>
               <button
                 type="submit"
-                disabled={createOrder.isLoading}
+                disabled={createOrder.isPending}
                 className="w-full sm:w-auto px-10 py-5 rounded-full bg-white text-black font-semibold text-lg hover:bg-white/90 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                {createOrder.isLoading ? "Submitting..." : `Submit Build Request — ₹${import.meta.env.VITE_BUILD_PRICE ?? 200}`}
+                {createOrder.isPending ? "Submitting..." : `Submit Build Request — ₹${import.meta.env.VITE_BUILD_PRICE ?? 200}`}
               </button>
             </div>
           </form>
