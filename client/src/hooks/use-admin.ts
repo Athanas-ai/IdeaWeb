@@ -1,14 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
+import { DEFAULT_ADMIN_PASSWORD } from "@shared/admin-auth";
+import {
+  clearStoredAdminPassword,
+  getStoredAdminPassword,
+  setStoredAdminPassword,
+} from "@/lib/admin-auth";
 
 export function useAdminAuth() {
   return useQuery({
     queryKey: [api.admin.checkAuth.path],
     queryFn: async () => {
-      const res = await fetch(api.admin.checkAuth.path, { credentials: "include" });
-      if (!res.ok) return { authenticated: false };
-      return await res.json();
+      return { authenticated: getStoredAdminPassword() === DEFAULT_ADMIN_PASSWORD };
     },
     retry: false,
   });
@@ -19,14 +23,11 @@ export function useAdminLogin() {
   const { toast } = useToast();
   return useMutation({
     mutationFn: async (password: string) => {
-      const res = await fetch(api.admin.login.path, {
-        method: api.admin.login.method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Invalid credentials");
-      return await res.json();
+      if (password !== DEFAULT_ADMIN_PASSWORD) {
+        throw new Error("Invalid credentials");
+      }
+      setStoredAdminPassword(password);
+      return { success: true };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [api.admin.checkAuth.path] });
@@ -47,12 +48,8 @@ export function useAdminLogout() {
   const { toast } = useToast();
   return useMutation({
     mutationFn: async () => {
-      const res = await fetch(api.admin.logout.path, {
-        method: api.admin.logout.method,
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Logout failed");
-      return await res.json();
+      clearStoredAdminPassword();
+      return { success: true };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [api.admin.checkAuth.path] });
