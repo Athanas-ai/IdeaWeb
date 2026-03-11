@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isAuthorizedAdminRequest } from "../_lib/auth";
+import { isAuthorizedAdminRequest } from "../_lib/auth.js";
 
 const createSchema = z.object({
   name: z.string().min(1).transform((s) => s.trim()),
