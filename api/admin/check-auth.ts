@@ -1,6 +1,5 @@
-import { z } from "zod";
-import { getAuthTokenFromReq, verifyToken } from "../_lib/auth";
-import { getAdminPassword } from "../../shared/admin-auth";
+import { getAuthTokenFromReq, verifyToken } from "../_lib/auth.js";
+import { getAdminPassword } from "../../shared/admin-auth.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") return res.status(405).json({ message: "Method not allowed" });
