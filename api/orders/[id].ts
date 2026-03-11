@@ -1,4 +1,4 @@
-import { isAuthorizedAdminRequest } from "../_lib/auth";
+import { isAuthorizedAdminRequest } from "../_lib/auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
