@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isAuthorizedAdminRequest } from "../../../api/_lib/auth";
+import { isAuthorizedAdminRequest } from "../../../api/_lib/auth.js";
 
 const updateSchema = z.object({ status: z.enum(["Pending", "Approved", "In Progress", "Completed", "Rejected"]) });
 
