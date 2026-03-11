@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isAuthorizedAdminRequest } from "../../../api/_lib/auth.js";
+import { isAuthorizedAdminRequest } from "../../_lib/auth.js";
 
 const updateSchema = z.object({ status: z.enum(["Pending", "Approved", "In Progress", "Completed", "Rejected"]) });
 
@@ -22,19 +22,20 @@ export default async function handler(req: any, res: any) {
 
     if (!isAuthorizedAdminRequest(req)) return res.status(401).json({ message: "Unauthorized" });
 
-    const id = req.query?.id;
+    const id = Array.isArray(req.query?.id) ? req.query.id[0] : req.query?.id;
     if (!id) return res.status(400).json({ message: "Missing id" });
 
     const input = updateSchema.parse(req.body);
-    const url = `${SUPABASE_URL}/rest/v1/orders?id=eq.${encodeURIComponent(id)}`;
+    const url = `${SUPABASE_URL}/rest/v1/orders?id=eq.${encodeURIComponent(id)}&select=*`;
     const r = await fetch(url, {
       method: "PATCH",
       headers: supabaseHeaders(SERVICE_KEY),
       body: JSON.stringify({ status: input.status }),
     });
-    const data = await r.json();
+    const text = await r.text();
+    const data = text ? JSON.parse(text) : null;
     if (!r.ok) return res.status(r.status).json({ message: data?.message || "Supabase error" });
-    return res.json(data[0] ?? data);
+    return res.json(Array.isArray(data) ? (data[0] ?? null) : data);
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ message: err.errors[0].message });
     console.error(err);
