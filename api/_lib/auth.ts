@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getAdminPassword, isAdminPassword } from "../../shared/admin-auth";
+import { getAdminPassword, isAdminPassword } from "../../shared/admin-auth.js";
 
 const COOKIE_NAME = "cbl_auth";
 
