@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
-import { signToken, makeAuthCookie } from "../_lib/auth";
-import { getAdminPassword } from "../../shared/admin-auth";
+import { signToken, makeAuthCookie } from "../_lib/auth.js";
+import { getAdminPassword } from "../../shared/admin-auth.js";
 
 const bodySchema = z.object({ password: z.string() });
 
